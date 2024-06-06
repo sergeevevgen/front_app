@@ -13,8 +13,6 @@ export const TimetableTeacherPage = () => {
           try {
             const response = await axiosPrivate.get(TimetableTeacher_URL);
 
-            console.log(response)
-
             if (response.status === 204) {
               setTimetableData(null);
               return;

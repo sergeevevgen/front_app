@@ -43,7 +43,6 @@ export const Timetable = ({ timetable, week }) => {
         }
     };
 
-    console.log(timetable.week)
     return (
         <div className="container p-0">Неделя {week}
             <div className="table-responsive">

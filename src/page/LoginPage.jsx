@@ -31,6 +31,7 @@ const LoginPage = () => {
           if (response.status === 200) {
               const user = response.data;
               console.log(user);
+              
               signIn(user, () => navigate(fromPage, { replace: true }));
           } else {
               console.error('Login failed');
