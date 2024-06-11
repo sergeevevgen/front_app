@@ -17,7 +17,7 @@ const CustomProtectedLink = ({children, to, allowedRoles, ...props}) => {
         return (<Link
             to={to}
             style={{
-                color: match ? 'var(--color-active)' : 'white',
+                color: match ? '#0dcaf0' : 'black',
             }}
             {...props}
         >
@@ -25,12 +25,9 @@ const CustomProtectedLink = ({children, to, allowedRoles, ...props}) => {
         </Link>);
     }
   
-    let isInclude = false;
-    for (const role of user?.roles) {
-        isInclude = allowedRoles.includes(role);
-    }
-  
-    if (!isInclude) {
+    const hasAccess = user.roles.some(role => allowedRoles.includes(role));
+
+    if (!hasAccess) {
         return null;
     }
 
@@ -38,7 +35,7 @@ const CustomProtectedLink = ({children, to, allowedRoles, ...props}) => {
         <Link
             to={to}
             style={{
-                color: match ? 'var(--color-active)' : 'white',
+                color: match ? '#0dcaf0' : 'black',
             }}
             {...props}
         >

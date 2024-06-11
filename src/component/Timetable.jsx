@@ -44,7 +44,7 @@ export const Timetable = ({ timetable, week }) => {
     };
 
     return (
-        <div className="container p-0">Неделя {week}
+        <div className="container p-0"><strong>Неделя {week}</strong>
             <div className="table-responsive">
                 <Table striped bordered hover>
                     <thead>

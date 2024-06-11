@@ -30,7 +30,7 @@ export const TimetablePage = () => {
         };
     
         fetchTimetable();
-      }, [axiosPrivate]);
+    }, [axiosPrivate]);
 
     return (
         <div>
