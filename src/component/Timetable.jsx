@@ -36,6 +36,7 @@ export const Timetable = ({ timetable, week }) => {
                     <div>{lesson.lessonName}</div>
                     <div>{lesson.teacherName}</div>
                     <div>{lesson.placeName}</div>
+                    <div>{lesson.groupName}</div>
                 </div>
             );
         } else {

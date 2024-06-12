@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Container, Button, InputGroup } from 'react-bootstrap';
+import { Container, Button, InputGroup, Card } from 'react-bootstrap';
 import useAxiosPrivate from '../hook/useAxiosPrivate';
 import { Modal } from 'react-bootstrap';
 
@@ -28,8 +28,7 @@ export const QRGenPage = () => {
               
               console.log(response?.data);
               setSubject(response?.data);
-              console.log(SubjectMark_URL + response?.data?.subjectId);
-            //   setQrCode(`http://api.qrserver.com/v1/create-qr-code/?data=${SubjectMark_URL + response?.data?.subjectId}!&size=${size}x${size}&bgcolor=${bgColor}`);
+              console.log(SubjectMark_URL + response?.data?.subjectId);            
             } catch (error) {
               console.error('Произошла ошибка:', error);
               setSubject(null);
@@ -39,6 +38,11 @@ export const QRGenPage = () => {
         fetchSubject();
 
     }, [axiosPrivate]);
+
+    const formatTime = (time) => {
+        const [hours, minutes] = time.split(':');
+        return `${hours}:${minutes}`;
+    };
 
     const handleClick = () => {
         if (!subject){
@@ -53,8 +57,26 @@ export const QRGenPage = () => {
             <div>
                 {subject ? 
                 (<>
-                    <p>{subject.subjectId}</p>
-                    <p>{subject.subjectName}</p>
+                <Card style={{ width: '18rem' }} className="mb-4">
+                    <Card.Body>
+                    <Card.Title>Занятие сейчас</Card.Title>
+                    <Card.Text>
+                        {subject.subjectName}
+                    </Card.Text>
+                    <Card.Text>
+                        {subject.groupName}
+                    </Card.Text>
+                    <Card.Text>
+                        {subject.placeName}
+                    </Card.Text>
+                    <Card.Text>
+                        {"C " + formatTime(subject.from) + ' до ' + formatTime(subject.to)}
+                    </Card.Text>
+                    <Card.Text>
+                        {subject.date}
+                    </Card.Text>
+                    </Card.Body>
+                </Card>
                 </>) 
                 : 
                 (<>
