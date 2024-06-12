@@ -1,32 +1,65 @@
 import React, { useEffect, useState } from 'react'
-import { Container, Button, InputGroup, Form } from 'react-bootstrap';
-import { useAuth } from '../hook/useAuth'
+import { Container, Button, InputGroup } from 'react-bootstrap';
+import useAxiosPrivate from '../hook/useAxiosPrivate';
+import { Modal } from 'react-bootstrap';
+
+const SubjectCurrent_URL = 'subject/current/';
+const SubjectMark_URL = 'subject/mark/';
 
 export const QRGenPage = () => {
     const [qrCode, setQrCode] = useState("");
-    const [temp, setTemp] = useState("");
-    const [word, setWord] = useState("");
-    const [size, setSize] = useState(300);
-    const [bgColor, setBgColor] = useState("ffffff");
-    const [value, setValue] = useState("");
+    const size = 300;
+    const bgColor = "ffffff";
+    const [subject, setSubject] = useState(null);
+    const [isModalEnabled, setModalEnabled] = useState(false);
+    const axiosPrivate = useAxiosPrivate();
+
+    const handleClose = () => setModalEnabled(false);
 
     useEffect(() => {
-        setQrCode(`http://api.qrserver.com/v1/create-qr-code/?data=${word}!&size=${size}x${size}&bgcolor=${bgColor}`);
-    }, [word, size, bgColor]);
+        const fetchSubject = async () => {
+            try {
+              const response = await axiosPrivate.get(SubjectCurrent_URL);
+  
+              if (response.status !== 200) {
+                console.log(response?.data);
+                throw new Error(response?.data);
+              }           
+              
+              console.log(response?.data);
+              setSubject(response?.data);
+              console.log(SubjectMark_URL + response?.data?.subjectId);
+            //   setQrCode(`http://api.qrserver.com/v1/create-qr-code/?data=${SubjectMark_URL + response?.data?.subjectId}!&size=${size}x${size}&bgcolor=${bgColor}`);
+            } catch (error) {
+              console.error('Произошла ошибка:', error);
+              setSubject(null);
+            }
+          };
+        
+        fetchSubject();
 
-    function handleClick() {
-        setWord(temp);
+    }, [axiosPrivate]);
+
+    const handleClick = () => {
+        if (!subject){
+            setModalEnabled(true);
+            return;
+        }
+        setQrCode(`http://api.qrserver.com/v1/create-qr-code/?data=${SubjectMark_URL + subject.subjectId}!&size=${size}x${size}&bgcolor=${bgColor}`);
     }
 
     return (
         <Container className="d-flex flex-column align-items-center w-75 p-0 gap-4">
             <div>
+                {subject ? 
+                (<>
+                    <p>{subject.subjectId}</p>
+                    <p>{subject.subjectName}</p>
+                </>) 
+                : 
+                (<>
+                </>)}
                 <InputGroup className="mb-3">
-                    <Form.Control
-                        placeholder="Начните вводить занятие"
-                        type="text"
-                        onChange={(e) => { setTemp(e.target.value) }}
-                    />
                     <Button
                         variant="outline-secondary"
                         onClick={handleClick}
@@ -34,13 +67,17 @@ export const QRGenPage = () => {
                         Сгенерировать QR-код
                     </Button>
                 </InputGroup>
-                <Form.Label htmlFor="ColorInput">Цвет фона:</Form.Label>
-                <Form.Control
-                    id="ColorInput"
-                    type="color"
-                    defaultValue="#ffffff"
-                    onChange={(e) => { setBgColor(e.target.value.substring(1)) }}
-                />
+                <Modal show={isModalEnabled} onHide={handleClose}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Предупреждение</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>Сегодня у вас нет занятий</Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="primary" onClick={handleClose}>
+                        Отлично
+                        </Button>
+                    </Modal.Footer>
+                </Modal>           
             </div>
             <div>
                 <img src={qrCode} alt="" />
