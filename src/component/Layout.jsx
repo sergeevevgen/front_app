@@ -26,7 +26,7 @@ const Layout = () => {
                         <CustomProtectedLink to="/qrgen" allowedRoles={[ROLES.Teacher]} className="nav-link">Генерация qr-кода</CustomProtectedLink>
                         <CustomProtectedLink to="/qrscanner" allowedRoles={[ROLES.Pupil]} className="nav-link">Сканирование qr-кода</CustomProtectedLink>
                         <CustomProtectedLink to="/admin" allowedRoles={[ROLES.Admin]} className="nav-link">Админ-панель</CustomProtectedLink>
-                        <CustomProtectedLink to="/statistic" className="nav-link">Отчёты</CustomProtectedLink>
+                        <CustomProtectedLink to="/statistic" allowedRoles={[ROLES.Teacher]} className="nav-link">Отчет посещаемости проводимых занятий</CustomProtectedLink>
                         <CustomProtectedLink to="/profile" className="nav-link">Профиль</CustomProtectedLink>
                     </Nav>
                     {!user && (

@@ -42,7 +42,7 @@ const StatisticPage = () => {
                                 <Card.Body className="d-flex flex-column">
                                     <Card.Title>{discipline?.lessonName}</Card.Title>
                                         <div className="mt-auto">
-                                        <Link to={`/statistic/${discipline?.lessonId}`} className="btn btn-primary">
+                                        <Link key={discipline?.lessonId} to={`/statistic/${discipline?.lessonId}`} className="btn btn-primary">
                                             Перейти
                                         </Link>
                                         </div>

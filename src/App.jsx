@@ -5,7 +5,7 @@ import { HomePage } from './page/HomePage';
 // import { Blogpage } from './pages/Blogpage';
 // import { Createpost } from './pages/Createpost';
 // import { Editpost } from './pages/Editpost';
-// import { Singlepage } from './pages/Singlepage';
+import { LessonPage } from './page/LessonPage';
 import { NotFoundPage } from './page/NotFoundPage';
 import { LoginPage } from './page/LoginPage';
 import { ProfilePage } from './page/ProfilePage';
@@ -78,6 +78,12 @@ function App() {
             <Route path="statistic" element={
               <RequireAuth>
                 <StatisticPage />
+              </RequireAuth>
+            } />
+
+            <Route path="statistic/:id" element={
+              <RequireAuth allowedRoles={[ROLES.Teacher]}>
+                <LessonPage />
               </RequireAuth>
             } />
             <Route path="login" element={<LoginPage />} />
