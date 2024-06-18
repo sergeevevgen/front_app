@@ -49,7 +49,7 @@ export const QRGenPage = () => {
             setModalEnabled(true);
             return;
         }
-        setQrCode(`http://api.qrserver.com/v1/create-qr-code/?data=${SubjectMark_URL + subject.subjectId}!&size=${size}x${size}&bgcolor=${bgColor}`);
+        setQrCode(`http://api.qrserver.com/v1/create-qr-code/?data=${SubjectMark_URL + subject.subjectId}&size=${size}x${size}&bgcolor=${bgColor}`);
     }
 
     return (
@@ -93,7 +93,7 @@ export const QRGenPage = () => {
                     <Modal.Header closeButton>
                         <Modal.Title>Предупреждение</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>Сегодня у вас нет занятий</Modal.Body>
+                    <Modal.Body>Сейчас у вас нет занятий</Modal.Body>
                     <Modal.Footer>
                         <Button variant="primary" onClick={handleClose}>
                         Отлично

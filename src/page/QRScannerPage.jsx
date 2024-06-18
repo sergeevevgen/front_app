@@ -11,13 +11,6 @@ export const QRScannerPage = () => {
   const scannerRef = useRef(null);
   const axiosPrivate = useAxiosPrivate();
 
-  function removeExclamationMark(str) {
-    if (str.endsWith('!')) {
-        return str.slice(0, -1);
-    }
-    return str;
-  }
-
   const handleClose = () => setModalEnabled(false);
 
   useEffect(() => {
@@ -30,9 +23,6 @@ export const QRScannerPage = () => {
 
     const postSubject = async (text) => {
       try {
-        console.log(text);
-        text = removeExclamationMark(text);
-        console.log(text);
         const response = await axiosPrivate.post(text);
 
         if (response.status !== 200) {
