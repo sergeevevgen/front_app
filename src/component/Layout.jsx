@@ -20,7 +20,7 @@ const Layout = () => {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="m-auto navbar-nav">
-                        <CustomProtectedLink to="/" className="nav-link">Дом</CustomProtectedLink>
+                        <CustomProtectedLink to="/" className="nav-link">Главная</CustomProtectedLink>
                         <CustomProtectedLink to="/timetablePupil" allowedRoles={[ROLES.Pupil]} className="nav-link">Расписание группы</CustomProtectedLink>
                         <CustomProtectedLink to="/timetableTeacher" allowedRoles={[ROLES.Teacher]} className="nav-link">Расписание проведения занятий</CustomProtectedLink>
                         <CustomProtectedLink to="/qrgen" allowedRoles={[ROLES.Teacher]} className="nav-link">Генерация qr-кода</CustomProtectedLink>
